@@ -23,7 +23,7 @@ public class MatrixIt implements Iterator<Integer> {
             break;
             }
         }
-        return row < data.length && column < data[data.length - 1].length;
+        return row < data.length;
     }
 
     @Override
