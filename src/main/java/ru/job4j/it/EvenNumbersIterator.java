@@ -17,16 +17,16 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         this.data = data;
     }
 
-    public List<Integer> evenList(int[] dataOrig) {
-        return Arrays.stream(dataOrig)
-                .boxed()
-                .filter(x -> x % 2 == 0)
-                .collect(Collectors.toList());
-    }
-
     @Override
     public boolean hasNext() {
-        return evenList(data).size() > index;
+        for (int i = index; i < data.length; i++) {
+            if (data[i] % 2 == 0) {
+                break;
+            } else {
+                index++;
+            }
+        }
+        return index < data.length;
     }
 
     @Override
@@ -34,6 +34,6 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return evenList(data).get(index++);
+        return data[index++];
     }
 }
