@@ -37,6 +37,7 @@ public class SimpleArrayList<T> implements List<T> {
         T temp = container[index];
         System.arraycopy(container, index + 1, container, // куда копируем
                 index, size - index - 1);
+        container[size - 1] = null;
         size--;
         modCount++;
         return temp;
