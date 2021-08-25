@@ -56,11 +56,14 @@ public class SimpleLinkedList<E> implements List<E> {
                     throw new ConcurrentModificationException();
                 }
                 Node<E> rsl = first;
-                for (int i = 0; i < index ; i++) {
+                if (index == 0) {
+                    index++;
+                    return rsl.item;
+                } else {
                     rsl = rsl.next;
+                    index++;
+                    return rsl.item;
                 }
-                index++;
-                return rsl.item;
             }
         };
     }
