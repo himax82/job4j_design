@@ -8,29 +8,16 @@ public class SimpleQueue<T> {
     int countIn = 0;
     int countOut = 0;
 
-    public boolean isEmpty() {
-        if (countOut == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public T poll() {
-        if (isEmpty()) {
-            for (int i = 0; i < countIn; i++) {
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
                 out.push(in.pop());
-                countOut++;
             }
         }
-        countOut--;
-        countIn = 0;
         return out.pop();
     }
 
     public void push(T value) {
         in.push(value);
-        countIn++;
     }
 }
