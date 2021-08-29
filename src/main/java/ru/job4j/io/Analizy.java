@@ -10,7 +10,8 @@ import java.util.List;
 public class Analizy {
     public void unavailable(String source, String target) {
         List<String> list = new ArrayList<>();
-        try (BufferedReader read = new BufferedReader(new FileReader(source))) {
+        try (BufferedReader read = new BufferedReader(new FileReader(source));
+             PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             String l;
             String key = null;
             while ((l = read.readLine()) != null) {
@@ -23,20 +24,13 @@ public class Analizy {
                 if (l.startsWith("200") || l.startsWith("300")) {
                     if (key != null) {
                         String[] ar = l.split(" ");
-                        list.add(key + ";" + ar[1]);
+                        out.println(key + ";" + ar[1]);
                         key = null;
                     }
                 }
                 }
             }
         catch (IOException e) {
-            e.printStackTrace();
-        }
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-            for (String s : list) {
-             out.println(s);
-            }
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }
