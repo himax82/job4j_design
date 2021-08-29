@@ -19,14 +19,19 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
+        int index = indexFor(hash(key.hashCode()));
         if (count >= capacity * LOAD_FACTOR) {
            expand();
         }
-        if (table[indexFor(hash(key.hashCode()))] == null) {
-            table[indexFor(hash(key.hashCode()))] = new MapEntry<>(key, value);
+        if (table[index] == null) {
+            table[index] = new MapEntry<>(key, value);
             count++;
             modCount++;
             return true;
+        } else {
+            if (table[index].value.equals(value)) {
+                table[index].value = value;
+            }
         }
         return false;
     }
@@ -51,10 +56,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
         table = newTable;
     }
 
+    private boolean isPresent(K key) {
+        return table[indexFor(hash(key.hashCode()))] != null
+                && table[indexFor(hash(key.hashCode()))].key.equals(key);
+    }
+
     @Override
     public V get(K key) {
-        if (table[indexFor(hash(key.hashCode()))] != null
-                && table[indexFor(hash(key.hashCode()))].key.equals(key)) {
+        if (isPresent(key)) {
             return table[indexFor(hash(key.hashCode()))].value;
         }
         return null;
@@ -62,8 +71,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean remove(K key) {
-        if (table[indexFor(hash(key.hashCode()))] != null
-                && table[indexFor(hash(key.hashCode()))].key.equals(key)) {
+        if (isPresent(key)) {
             table[indexFor(hash(key.hashCode()))] = null;
             count--;
             modCount++;
