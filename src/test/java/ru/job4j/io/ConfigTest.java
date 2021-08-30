@@ -43,4 +43,18 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNotSampleLengthLess2() {
+        String path = "./data/pair_with_not_sample_length.properties";
+        Config config = new Config(path);
+        config.load();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNotSampleLengthMore2() {
+        String path = "./data/pair_with_not_sample_length_more_2.properties";
+        Config config = new Config(path);
+        config.load();
+    }
 }
