@@ -5,15 +5,14 @@ import java.io.FileInputStream;
 public class EvenNumberFile {
 
     public String read(String path) {
-        try (FileInputStream in = new FileInputStream("even.txt")) {
+        try (FileInputStream in = new FileInputStream(path)) {
             StringBuilder text = new StringBuilder();
             int read;
             while ((read = in.read()) != -1) {
                 text.append((char) read);
             }
             return text.toString();
-        }
-            catch (Exception e) {
+        } catch (Exception e) {
                 e.printStackTrace();
             }
         return null;
