@@ -7,7 +7,7 @@ public class Analize {
     public static Info diff(Set<User> previous, Set<User> current) {
         Set<User> addSet = new HashSet<>(previous);
         addSet.addAll(current);
-        Map<Integer, User > chMap = new HashMap<>();
+        Map<Integer, User> chMap = new HashMap<>();
         for (User u : addSet) {
             chMap.put(u.getId(), u);
         }

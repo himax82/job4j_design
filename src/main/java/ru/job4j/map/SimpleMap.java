@@ -37,7 +37,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int hash(int hashCode) {
-        return hashCode & (capacity-1);
+        return hashCode & (capacity - 1);
     }
 
     private int indexFor(int hash) {

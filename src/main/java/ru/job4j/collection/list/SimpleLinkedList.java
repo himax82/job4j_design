@@ -17,10 +17,11 @@ public class SimpleLinkedList<E> implements List<E> {
         Node<E> l = last;
         Node<E> newNode = new Node<>(l, value, null);
         last = newNode;
-        if (l == null)
+        if (l == null) {
             first = newNode;
-        else
+        } else {
             l.next = newNode;
+        }
         size++;
         modCount++;
     }
@@ -29,7 +30,7 @@ public class SimpleLinkedList<E> implements List<E> {
     public E get(int index) {
         Objects.checkIndex(index, size);
         Node<E> rsl = first;
-        for (int i = 0; i < index ; i++) {
+        for (int i = 0; i < index; i++) {
             rsl = rsl.next;
         }
         return rsl.item;

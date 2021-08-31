@@ -24,7 +24,7 @@ public class Config {
            while ((l = read.readLine()) != null) {
                if (!l.startsWith(" ") && !l.startsWith("#") && !l.equals("")) {
                    String[] ar = l.split("=");
-                   if (ar.length != 2 || ar[0].endsWith(" ") || ar[1].startsWith(" ")){
+                   if (ar.length != 2 || ar[0].endsWith(" ") || ar[1].startsWith(" ")) {
                        throw new IllegalArgumentException();
                    } else {
                        values.put(ar[0], ar[1]);
