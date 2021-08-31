@@ -8,7 +8,7 @@ public class ResultFile {
         try (FileOutputStream out = new FileOutputStream("result.txt")) {
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
-                    out.write((i + 1) * (j + 1));
+                    out.write(Integer.toString((i + 1) * (j + 1)).getBytes());
                     out.write(" ".getBytes());
                 }
                 out.write(System.lineSeparator().getBytes());
