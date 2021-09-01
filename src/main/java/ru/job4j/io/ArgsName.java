@@ -1,6 +1,9 @@
 package ru.job4j.io;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -48,11 +51,4 @@ public class ArgsName {
         return names;
     }
 
-    public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
-        System.out.println(jvm.get("Xmx"));
-
-        ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
-        System.out.println(zip.get("out"));
-    }
 }
