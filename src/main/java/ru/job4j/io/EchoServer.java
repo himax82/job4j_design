@@ -15,12 +15,19 @@ public class EchoServer {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                         System.out.println(str);
-                        if (str.equals("GET /?msg=Bye HTTP/1.1")) {
-                            socket.close();
+                        if (str.equals("GET /?msg=Exit HTTP/1.1")) {
                             server.close();
+                            break;
+                        } else if (str.equals("GET /?msg=Hello HTTP/1.1")) {
+                            out.write("Hello".getBytes());
+                            out.flush();
+                            break;
+                        } else {
+                            out.write("What?".getBytes());
+                            out.flush();
+                            break;
                         }
                     }
-                    out.flush();
                 }
             }
         }
