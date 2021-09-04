@@ -23,14 +23,16 @@ public class ArgsName {
         for (String s : args) {
             String[] splits = s.split("=");
             if (splits.length != 2) {
-                throw new IllegalArgumentException("USE SAMPLE KEY(-d, -e or -o)=ARGUMENT(PACK_FOLDER, EXCLUDE FILES AND INPUT_NAME_FILE)");
+                throw new IllegalArgumentException("USE SAMPLE KEY(-path, -delimiter, -out, -filter)"
+                        + "=ARGUMENT(SCV_IN_FILE, DELIMITER, OUT(FILENAME OR STDOUT) AND FILTER_ATRIBUTS)");
             }
-            if (!splits[0].equals("-d") && !splits[0].equals("-e") && !splits[0].equals("-o")) {
-                throw new IllegalArgumentException("USE SAMPLE KEY(-d, -e or -o)");
+            if (!splits[0].equals("-path") && !splits[0].equals("-delimiter")
+                    && !splits[0].equals("-out") && !splits[0].equals("-filter")) {
+                throw new IllegalArgumentException("USE SAMPLE KEY(-path, -delimiter, -out, -filter)");
             }
-            if (splits[0].equals("-d")) {
+            if (splits[0].equals("-path")) {
                 if (!Files.exists(Path.of(splits[1]))) {
-                    throw new IllegalArgumentException("FOLDER" + splits[1] + "DON'T EXIST");
+                    throw new IllegalArgumentException("FILE " + splits[1] + " DON'T EXIST");
                 }
             }
             values.put(splits[0].substring(1), splits[1]);
@@ -56,8 +58,9 @@ public class ArgsName {
 
     public static ArgsName of(String[] args) {
         ArgsName names = new ArgsName();
-        if (args.length != 3) {
-            throw new IllegalArgumentException("Usage java -jar zip.jar PACK_FOLDER, EXCLUDE FILES AND INPUT_NAME_FILE.");
+        if (args.length != 4) {
+            throw new IllegalArgumentException("Usage java -jar CSV.jar SCV_IN_FILE, DELIMITER,"
+                    + " OUT(FILENAME OR STDOUT) AND FILTER_ATRIBUTS.");
         }
         names.parse(args);
         return names;
