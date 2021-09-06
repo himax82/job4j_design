@@ -33,13 +33,11 @@ public class EchoServer {
                             break;
                         }
                     }
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     LOG.error("IOException in log example", e);
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOG.error("IOException in log example", e);
         }
     }

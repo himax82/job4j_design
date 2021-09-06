@@ -62,13 +62,12 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "allroad=" + allroad +
-                ", brand='" + brand + '\'' +
-                ", price=" + price +
-                ", engine=" + engine +
-                ", options=" + Arrays.toString(options) +
-                '}';
+        return "Car{" + "allroad=" + allroad
+                + ", brand='" + brand + '\''
+                + ", price=" + price
+                + ", engine=" + engine
+                + ", options=" + Arrays.toString(options)
+                + '}';
     }
 
     public static void main(String[] args) throws Exception {
