@@ -1,5 +1,7 @@
 package ru.job4j.io;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -19,7 +21,17 @@ public class ArgsName {
         for (String s : args) {
             String[] splits = s.split("=");
             if (splits.length != 2) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("USE SAMPLE KEY(-path, -delimiter, -out, -filter)"
+                        + "=ARGUMENT(SCV_IN_FILE, DELIMITER, OUT(FILENAME OR STDOUT) AND FILTER_ATRIBUTS)");
+            }
+            if (!splits[0].equals("-path") && !splits[0].equals("-delimiter")
+                    && !splits[0].equals("-out") && !splits[0].equals("-filter")) {
+                throw new IllegalArgumentException("USE SAMPLE KEY(-path, -delimiter, -out, -filter)");
+            }
+            if (splits[0].equals("-path")) {
+                if (!Files.exists(Path.of(splits[1]))) {
+                    throw new IllegalArgumentException("FILE " + splits[1] + " DON'T EXIST");
+                }
             }
             values.put(splits[0].substring(1), splits[1]);
         }
@@ -44,15 +56,12 @@ public class ArgsName {
 
     public static ArgsName of(String[] args) {
         ArgsName names = new ArgsName();
+        if (args.length != 4) {
+            throw new IllegalArgumentException("Usage java -jar CSV.jar SCV_IN_FILE, DELIMITER,"
+                    + " OUT(FILENAME OR STDOUT) AND FILTER_ATRIBUTS.");
+        }
         names.parse(args);
         return names;
     }
 
-    public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
-        System.out.println(jvm.get("Xmx"));
-
-        ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
-        System.out.println(zip.get("out"));
-    }
 }

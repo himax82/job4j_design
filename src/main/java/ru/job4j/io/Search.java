@@ -9,11 +9,11 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Root folder and file extension is null. Usage java -jar dir.jar ROOT_FOLDER AND FILE EXTENSION.");
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Usage java -jar dir.jar ROOT_FOLDER AND FILE EXTENSION.");
         }
-        if (args.length == 1) {
-            throw new IllegalArgumentException("file extension is null. Usage java -jar dir.jar ROOT_FOLDER AND FILE EXTENSION.");
+        if (!Files.isDirectory(Paths.get(args[0]))) {
+            throw new IllegalArgumentException("Usage java -jar dir.jar ROOT_FOLDER THE ERROR IS NAMED.");
         }
         Path start = Paths.get(args[0]);
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
