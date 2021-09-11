@@ -1,6 +1,7 @@
 package ru.job4j.question;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Analize {
 
@@ -16,5 +17,4 @@ public class Analize {
         int del = addSet.size() - current.size() - ch;
         return new Info(add, ch, del);
     }
-
 }
