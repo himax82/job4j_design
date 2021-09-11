@@ -40,7 +40,7 @@ public class Zip {
         if (map.size() != 3) {
             throw new IllegalArgumentException("Usage java -jar zip.jar PACK_FOLDER, EXCLUDE FILES AND INPUT_NAME_FILE.");
         }
-        if (!map.containsKey("d") && !map.containsKey("e") && !map.containsKey("o")) {
+        if (!map.containsKey("d") || !map.containsKey("e") || !map.containsKey("o")) {
             throw new IllegalArgumentException("USE SAMPLE KEY(-d, -e or -o)");
         }
         if (!Files.exists(Path.of(map.get("d")))) {
@@ -52,7 +52,7 @@ public class Zip {
     public static void main(String[] args) throws IOException {
         ArgsName jvm = ArgsName.of(args);
         if (Zip.validate(jvm.getMap())) {
-            List<Path> zipList = Search.search(Path.of(jvm.get("d")), p -> p.toFile().toString().endsWith(jvm.get("e")));
+            List<Path> zipList = Search.search(Path.of(jvm.get("d")), p -> !p.toFile().toString().endsWith(jvm.get("e")));
             Zip.packFiles(zipList, Path.of(jvm.get("o")).toFile());
         }
     }
