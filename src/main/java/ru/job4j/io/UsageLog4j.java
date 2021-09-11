@@ -15,8 +15,8 @@ public class UsageLog4j {
         char gender = 'M';
         short iq = 110;
         boolean drivingCar = true;
-        boolean haveHigherEducation = true;
-        LOG.debug("User info age : {}, weight : {}, height : {}, children : {}, gender : {} , iq : {}iq, drivingCar : {}, haveHigherEducation : {}",
-                age, weight, height, children, gender, iq, drivingCar, haveHigherEducation);
+        long zipCode = 670024;
+        LOG.debug("User info age : {}, weight : {}, height : {}, children : {}, gender : {} , iq : {}iq, drivingCar : {}, zipCode : {}",
+                age, weight, height, children, gender, iq, drivingCar, zipCode);
     }
 }

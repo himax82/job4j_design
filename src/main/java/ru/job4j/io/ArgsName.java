@@ -17,21 +17,15 @@ public class ArgsName {
         return values.get(key);
     }
 
+    public Map getMap() {
+        return values;
+    }
+
     private void parse(String[] args) {
         for (String s : args) {
             String[] splits = s.split("=");
             if (splits.length != 2) {
-                throw new IllegalArgumentException("USE SAMPLE KEY(-path, -delimiter, -out, -filter)"
-                        + "=ARGUMENT(SCV_IN_FILE, DELIMITER, OUT(FILENAME OR STDOUT) AND FILTER_ATRIBUTS)");
-            }
-            if (!splits[0].equals("-path") && !splits[0].equals("-delimiter")
-                    && !splits[0].equals("-out") && !splits[0].equals("-filter")) {
-                throw new IllegalArgumentException("USE SAMPLE KEY(-path, -delimiter, -out, -filter)");
-            }
-            if (splits[0].equals("-path")) {
-                if (!Files.exists(Path.of(splits[1]))) {
-                    throw new IllegalArgumentException("FILE " + splits[1] + " DON'T EXIST");
-                }
+                throw new IllegalArgumentException("USE SAMPLE KEY=ARGUMENT");
             }
             values.put(splits[0].substring(1), splits[1]);
         }
@@ -56,10 +50,6 @@ public class ArgsName {
 
     public static ArgsName of(String[] args) {
         ArgsName names = new ArgsName();
-        if (args.length != 4) {
-            throw new IllegalArgumentException("Usage java -jar CSV.jar SCV_IN_FILE, DELIMITER,"
-                    + " OUT(FILENAME OR STDOUT) AND FILTER_ATRIBUTS.");
-        }
         names.parse(args);
         return names;
     }
