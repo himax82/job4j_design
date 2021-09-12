@@ -1,17 +1,17 @@
-create table item (
+create table role (
 	id serial primary key,
-	item text	
+	role text
 );
 
 create table users (
 	id serial primary key,
 	name text,
-	item_id int references item(id)
+	role_id int references role(id)
 );
 
-create table role (
+create table item (
 	id serial primary key,
-	role text,
+	item text,
 	users_id int references users(id)
 );
 
@@ -48,4 +48,4 @@ create table state (
 	id serial primary key,
 	state text,
 	item_id int references item(id)
-);
+	);
