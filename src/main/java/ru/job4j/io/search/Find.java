@@ -7,8 +7,9 @@ import java.util.List;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Find {
@@ -21,26 +22,34 @@ public class Find {
                 .collect(Collectors.toList());
     }
 
+    public Predicate<Path> getPredicate(String key, String value) {
+        if (key.equals("name")) {
+            return p -> p.toFile().getName().equals(value);
+        }
+        if (key.equals("mask")) {
+            return p -> Pattern.compile(".*\\." + value.substring(2)).matcher(p.toFile().getName()).matches();
+        }
+        if (key.equals("regex")) {
+            return p -> Pattern.compile(value).matcher(p.toFile().getName()).matches();
+        }
+        return null;
+    }
 
-    public static void main(String[] args) throws IOException {
-        List<String> findResult = new ArrayList<>();
-        ArgCommand argCommand = ArgCommand.of(args);
-        if (argCommand.get("t").equals("name")) {
-            findResult = new Find().find(Path.of(argCommand.get("d")),
-                    p -> p.toFile().getName().equals(argCommand.get("n")));
-        }
-        if (argCommand.get("t").equals("mask")) {
-            findResult = new Find().find(Path.of(argCommand.get("d")),
-                    p -> p.toFile().getName().endsWith(argCommand.get("n")));
-        }
-        if (argCommand.get("t").equals("regex")) {
-            findResult = new Find().find(Path.of(argCommand.get("d")),
-                    p -> p.toFile().getName().matches(argCommand.get("n")));
-        }
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(argCommand.get("o")))) {
-            for (String s : findResult) {
+    public void print(String outPath, List<String> list) throws IOException {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(outPath))) {
+            for (String s : list) {
                 out.println(s);
             }
         }
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        List<String> findResult;
+        ArgCommand argCommand = ArgCommand.of(args);
+        Find find = new Find();
+        findResult = find.find(Path.of(argCommand.get("d")),
+                find.getPredicate(argCommand.get("t"), argCommand.get("n")));
+        find.print(argCommand.get("o"), findResult);
     }
 }
