@@ -1,0 +1,9 @@
+select * from emploers e left join departmens d on e.departmens_id = d.id;
+select * from emploers e right join departmens d on e.departmens_id = d.id;
+select * from emploers e full join departmens d on e.departmens_id = d.id;
+select * from emploers e cross join departmens d;
+
+select * from departmens d left join emploers e on d.id = e.departmens_id where e.departmens_id is Null;
+
+select * from emploers e left join departmens d on e.departmens_id = d.id;
+select * from departmens d right join emploers e on e.departmens_id = d.id;
